@@ -21,7 +21,7 @@
 <h3>Select MFA Method</h3>
 <p>Welcome back, {{ user.email }}</p>
 
-<div style="display: flex; gap: 10px; flex-direction: column;">
+<div class="flex-col">
     <a href="{{ url_for('mfa_email') }}" class="btn">Email OTP</a>
     <a href="{{ url_for('mfa_totp') }}" class="btn">Authenticator App (TOTP)</a>
     {% if user.face_embedding %}

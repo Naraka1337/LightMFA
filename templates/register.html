@@ -14,13 +14,13 @@
 
     <div class="form-group">
         <label>Face Registration (Optional)</label>
-        <div id="face-container" style="display:none;">
+        <div id="face-container" class="d-none">
             <video id="video" width="320" height="240" autoplay muted></video>
             <br>
             <button type="button" id="captureBtn" class="btn">Capture Face</button>
             <span id="status"></span>
         </div>
-        <button type="button" id="enableFaceBtn" class="btn" style="background: #6c757d;">Enable Face ID</button>
+        <button type="button" id="enableFaceBtn" class="btn btn-secondary">Enable Face ID</button>
         <input type="hidden" name="face_embedding" id="face_embedding">
     </div>
 
