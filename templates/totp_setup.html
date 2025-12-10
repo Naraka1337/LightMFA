@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Setup Authenticator</h2>
+<p>Scan this QR code with Google Authenticator or Authy.</p>
+<img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+<p>Or enter this secret manually: <strong>{{ secret }}</strong></p>
+
+<h3>Verify to Enable</h3>
+<form method="POST">
+    <div class="form-group">
+        <label>Enter 6-digit Code</label>
+        <input type="text" name="code" required placeholder="123456">
+    </div>
+    <button type="submit" class="btn">Verify & Enable</button>
+</form>
+<br>
+<a href="{{ url_for('index') }}">Cancel</a>
+{% endblock %}
