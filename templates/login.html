@@ -1,31 +1,74 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Login</h2>
+<h2>🔑 Welcome Back</h2>
+<p>Sign in to access your secure dashboard</p>
 
 {% if step == 'credentials' %}
 <form method="POST">
     <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" required>
+        <label>Email Address</label>
+        <div class="input-wrapper">
+            <span class="icon">📧</span>
+            <input type="email" name="email" required placeholder="you@example.com">
+        </div>
     </div>
     <div class="form-group">
         <label>Password</label>
-        <input type="password" name="password" required>
+        <div class="input-wrapper">
+            <span class="icon">🔒</span>
+            <input type="password" name="password" required placeholder="••••••••">
+        </div>
     </div>
-    <button type="submit" class="btn">Next</button>
+    <div class="checkbox-group">
+        <label>
+            <input type="checkbox" name="remember">
+            Remember Me
+        </label>
+        <a href="#">Forgot Password?</a>
+    </div>
+    <button type="submit" class="btn">🚀 Continue</button>
 </form>
-<p>No account? <a href="{{ url_for('register') }}">Register</a></p>
+
+<div class="divider"><span>or</span></div>
+
+<!-- <div class="social-icons">
+    <a href="#" class="social-icon" title="Google">G</a>
+    <a href="#" class="social-icon" title="GitHub">⌘</a>
+    <a href="#" class="social-icon" title="Microsoft">M</a>
+</div> -->
+
+<p class="form-footer">New here? <a href="{{ url_for('register') }}">Create an account</a></p>
 
 {% elif step == 'mfa_select' %}
-<h3>Select MFA Method</h3>
-<p>Welcome back, {{ user.email }}</p>
+<h2>🛡️ Verify Identity</h2>
+<p>Welcome back, <strong>{{ user.email }}</strong><br>Choose your verification method</p>
 
-<div class="flex-col">
-    <a href="{{ url_for('mfa_email') }}" class="btn">Email OTP</a>
-    <a href="{{ url_for('mfa_totp') }}" class="btn">Authenticator App (TOTP)</a>
+<div class="mfa-options">
+    <a href="{{ url_for('mfa_email') }}" class="mfa-btn">
+        <div class="icon">📧</div>
+        <div>
+            <div class="label">Email OTP</div>
+            <div class="desc">Receive a 6-digit code via email</div>
+        </div>
+    </a>
+
+    <a href="{{ url_for('mfa_totp') }}" class="mfa-btn">
+        <div class="icon">📱</div>
+        <div>
+            <div class="label">Authenticator App</div>
+            <div class="desc">Use Google Authenticator or Authy</div>
+        </div>
+    </a>
+
     {% if user.face_embedding %}
-    <a href="{{ url_for('mfa_face') }}" class="btn">Face Recognition</a>
+    <a href="{{ url_for('mfa_face') }}" class="mfa-btn">
+        <div class="icon">👤</div>
+        <div>
+            <div class="label">Face Recognition</div>
+            <div class="desc">Verify using your camera</div>
+        </div>
+    </a>
     {% endif %}
 </div>
 {% endif %}

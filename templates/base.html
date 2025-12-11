@@ -4,36 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MFA Demo</title>
+    <title>LightMFA - Secure Authentication</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
 </head>
 
 <body>
-    <h1>Cybersecurity MFA Demo</h1>
-    <h1>By our Team (404-PageNotFound)</h1>
+    <div class="page-wrapper">
+        <!-- Left Hero Section -->
+        <div class="hero-section">
+            <div class="matrix-bg"></div>
+            <div class="hero-content">
+                <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Cyber Security" class="hero-image">
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <h4>🔒 Encryption</h4>
+                        <span class="value">AES-256</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🛡️ Protection</h4>
+                        <span class="value">99.9%</span>
+                        <span class="trend">↑ Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+        <!-- Right Form Section -->
+        <div class="form-section">
+            <div class="brand">
+                <div class="brand-icon">🔐</div>
+                <h1>LightMFA</h1>
+                <p>Multi-Factor Authentication System</p>
+            </div>
 
-    <div class="container">
-        {% if logged_in %}
-        <h2>Welcome! You are authenticated.</h2>
-        <p>This is a secure area.</p>
-        {% if not user.totp_active %}
-        <a href="{{ url_for('setup_totp') }}" class="btn">Setup TOTP (Authenticator App)</a>
-        {% endif %}
-        <a href="{{ url_for('logout') }}" class="btn" style="background: #dc3545;">Logout</a>
-        {% else %}
-        {% block content %}{% endblock %}
-        {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="container">
+                {% if logged_in %}
+                <div class="welcome-section">
+                    <div class="shield-icon">✅</div>
+                    <h2>Access Granted!</h2>
+                    <p>You are securely authenticated as <strong>{{ user.email }}</strong></p>
+                    {% if not user.totp_active %}
+                    <a href="{{ url_for('setup_totp') }}" class="btn btn-secondary" style="margin-bottom: 1rem;">
+                        📱 Setup TOTP (Authenticator App)
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}" class="btn btn-danger">🚪 Logout</a>
+                </div>
+                {% else %}
+                {% block content %}{% endblock %}
+                {% endif %}
+            </div>
+
+            <div class="form-footer">
+                <p>Secured by <strong>Team 404-PageNotFound</strong></p>
+            </div>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='face-api/face-api.min.js') }}"></script>
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+
     {% block scripts %}{% endblock %}
 </body>
 

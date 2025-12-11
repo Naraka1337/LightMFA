@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Authenticator Verification</h2>
+<h2>📱 Authenticator Verification</h2>
+<p>Enter the 6-digit code from your<br>Google Authenticator or Authy app</p>
+
 <form method="POST">
     <div class="form-group">
-        <label>Enter 6-digit Code</label>
-        <input type="text" name="code" required placeholder="123456">
+        <label>TOTP Code</label>
+        <div class="input-wrapper">
+            <span class="icon">🔐</span>
+            <input type="text" name="code" required placeholder="123456" maxlength="6"
+                style="font-family: 'Orbitron', monospace; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem;">
+        </div>
     </div>
-    <button type="submit" class="btn">Verify</button>
+    <button type="submit" class="btn btn-success">✅ Verify</button>
 </form>
+
+<p style="margin-top: 2rem; font-size: 0.85rem;">
+    Code refreshes every 30 seconds
+</p>
 {% endblock %}

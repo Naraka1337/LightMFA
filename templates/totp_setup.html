@@ -1,19 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Setup Authenticator</h2>
-<p>Scan this QR code with Google Authenticator or Authy.</p>
-<img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
-<p>Or enter this secret manually: <strong>{{ secret }}</strong></p>
+<h2>📱 Setup Authenticator</h2>
+<p>Scan this QR code with Google Authenticator, Authy, or any TOTP app</p>
 
-<h3>Verify to Enable</h3>
+<img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" style="max-width: 200px;">
+
+<p style="font-size: 0.8rem; color: var(--text-muted);">
+    Or enter this secret manually:<br>
+    <code
+        style="background: rgba(124,58,237,0.2); padding: 0.5rem 1rem; border-radius: 6px; font-family: 'Orbitron', monospace; font-size: 0.9rem;">{{ secret }}</code>
+</p>
+
+<h3>🔒 Verify to Enable</h3>
 <form method="POST">
     <div class="form-group">
-        <label>Enter 6-digit Code</label>
-        <input type="text" name="code" required placeholder="123456">
+        <label>Enter 6-digit Code from App</label>
+        <div class="input-wrapper">
+            <span class="icon">🔐</span>
+            <input type="text" name="code" required placeholder="123456" maxlength="6"
+                style="font-family: 'Orbitron', monospace; font-size: 1.25rem; text-align: center; letter-spacing: 0.5rem;">
+        </div>
     </div>
-    <button type="submit" class="btn">Verify & Enable</button>
+    <button type="submit" class="btn btn-success">✅ Verify & Enable</button>
 </form>
-<br>
-<a href="{{ url_for('index') }}">Cancel</a>
+
+<p style="margin-top: 1.5rem;">
+    <a href="{{ url_for('index') }}">← Cancel and go back</a>
+</p>
 {% endblock %}

@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Email Verification</h2>
-<p>We have sent a 6-digit code to your email.</p>
+<h2>📧 Email Verification</h2>
+<p>We've sent a 6-digit security code to your email.<br>Please enter it below to continue.</p>
+
 <form method="POST">
     <div class="form-group">
-        <label>Enter OTP</label>
-        <input type="text" name="otp" required placeholder="123456">
+        <label>Enter OTP Code</label>
+        <div class="input-wrapper">
+            <span class="icon">🔢</span>
+            <input type="text" name="otp" required placeholder="123456" maxlength="6"
+                style="font-family: 'Orbitron', monospace; font-size: 1.5rem; text-align: center; letter-spacing: 0.5rem;">
+        </div>
     </div>
-    <button type="submit" class="btn">Verify</button>
+    <button type="submit" class="btn btn-success">✅ Verify Code</button>
 </form>
+
+<p style="margin-top: 2rem; font-size: 0.85rem;">
+    Didn't receive the code? <a href="{{ url_for('mfa_email') }}">Resend</a>
+</p>
 {% endblock %}

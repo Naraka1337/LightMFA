@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Face Recognition</h2>
+<h2>👤 Face Recognition</h2>
+<p>Position your face in the camera frame.<br>Verification will happen automatically.</p>
+
 <div id="face-container">
     <video id="video" width="320" height="240" autoplay muted></video>
-    <br>
-    <span id="status">Loading models...</span>
+    <div id="status">🔄 Loading face detection models...</div>
 </div>
 
 {% endblock %}
