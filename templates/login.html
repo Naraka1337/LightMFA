@@ -44,33 +44,64 @@
 <h2>🛡️ Verify Identity</h2>
 <p>Welcome back, <strong>{{ user.email }}</strong><br>Choose your verification method</p>
 
-<div class="mfa-options">
-    <a href="{{ url_for('mfa_email') }}" class="mfa-btn">
-        <div class="icon">📧</div>
-        <div>
-            <div class="label">Email OTP</div>
-            <div class="desc">Receive a 6-digit code via email</div>
-        </div>
-    </a>
+<form id="mfaForm" onsubmit="handleMfaSubmit(event)" class="mfa-selection-form">
+    <div class="mfa-options">
+        <label class="mfa-option-card">
+            <input type="radio" name="mfa_method" value="email" checked>
+            <div class="mfa-content">
+                <div class="icon">📧</div>
+                <div>
+                    <div class="label">Email OTP</div>
+                    <div class="desc">Receive a 6-digit code via email</div>
+                </div>
+            </div>
+            <div class="check-circle"></div>
+        </label>
 
-    <a href="{{ url_for('mfa_totp') }}" class="mfa-btn">
-        <div class="icon">📱</div>
-        <div>
-            <div class="label">Authenticator App</div>
-            <div class="desc">Use Google Authenticator or Authy</div>
-        </div>
-    </a>
+        <label class="mfa-option-card">
+            <input type="radio" name="mfa_method" value="totp">
+            <div class="mfa-content">
+                <div class="icon">📱</div>
+                <div>
+                    <div class="label">Authenticator App</div>
+                    <div class="desc">Use Google Authenticator or Authy</div>
+                </div>
+            </div>
+            <div class="check-circle"></div>
+        </label>
 
-    {% if user.face_embedding %}
-    <a href="{{ url_for('mfa_face') }}" class="mfa-btn">
-        <div class="icon">👤</div>
-        <div>
-            <div class="label">Face Recognition</div>
-            <div class="desc">Verify using your camera</div>
-        </div>
-    </a>
-    {% endif %}
-</div>
+        {% if user.face_embedding %}
+        <label class="mfa-option-card">
+            <input type="radio" name="mfa_method" value="face">
+            <div class="mfa-content">
+                <div class="icon">👤</div>
+                <div>
+                    <div class="label">Face Recognition</div>
+                    <div class="desc">Verify using your camera</div>
+                </div>
+            </div>
+            <div class="check-circle"></div>
+        </label>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn mt-4">🛡️ Verify Identity</button>
+</form>
+
+<script>
+    function handleMfaSubmit(e) {
+        e.preventDefault();
+        const method = document.querySelector('input[name="mfa_method"]:checked').value;
+        const routes = {
+            'email': "{{ url_for('mfa_email') }}",
+            'totp': "{{ url_for('mfa_totp') }}",
+            'face': "{{ url_for('mfa_face') }}"
+        };
+        if (routes[method]) {
+            window.location.href = routes[method];
+        }
+    }
+</script>
 {% endif %}
 
 {% endblock %}

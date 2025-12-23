@@ -727,4 +727,114 @@ img[alt="QR Code"] {
 /* Legacy compatibility - simple centered layout fallback */
 body>h1 {
     display: none;
+}/* MFA Check Button Styling */
+.mfa-option-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: rgba(124, 58, 237, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.mfa-option-card:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: var(--accent-purple);
+    transform: translateY(-2px);
+}
+
+/* Hide default radio */
+.mfa-option-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Selected State */
+.mfa-option-card:has(input:checked) {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+}
+
+.mfa-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.mfa-content .icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: all 0.3s;
+}
+
+.mfa-option-card:hover .icon,
+.mfa-option-card:has(input:checked) .icon {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    border-color: transparent;
+    color: white;
+}
+
+.mfa-content .label {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.mfa-content .desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.mfa-option-card:has(input:checked) .desc {
+    color: var(--text-secondary);
+}
+
+/* Check Circle Indicator */
+.check-circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--text-muted);
+    border-radius: 50%;
+    margin-left: 1rem;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.check-circle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 12px;
+    height: 12px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mfa-option-card:has(input:checked) .check-circle {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 10px var(--accent-green-glow);
+}
+
+.mfa-option-card:has(input:checked) .check-circle::after {
+    transform: translate(-50%, -50%) scale(1);
 }
